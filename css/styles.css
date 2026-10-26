@@ -1,14 +1,236 @@
-body {
-  font-family: system-ui, sans-serif;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  color: #222;
+
+:root {
+  --bg: #f2f5f9;
+  --surface: #ffffff;
+  --text: #17212d;
+  --muted: #55657a;
+  --line: #d5dde8;
+  --accent: #0b6e8f;
+  --accent-soft: #d9eef5;
+ 
+  --radius: 0.75rem;
+  --shadow: 0 1px 2px rgba(23, 33, 45, 0.06);
+  --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
 }
+ 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1823;
+    --surface: #17232f;
+    --text: #e6edf4;
+    --muted: #9fb0c3;
+    --line: #2a3a4a;
+    --accent: #5cc4e4;
+    --accent-soft: #173344;
+    --shadow: none;
+  }
+}
+ 
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+ 
+html {
+  scroll-behavior: smooth;
+}
+ 
+body {
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3rem;
+}
+ 
+h1,
+h2 {
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+ 
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-thickness 0.15s;
+}
+ 
+a:hover {
+  text-decoration-thickness: 3px;
+}
+ 
+a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+ 
+/* ---------- 3. Cabecera: foto + nombre ---------- */
 header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 2rem;
+  align-items: center;
+  padding: 2.5rem 0 2.25rem;
+  border-bottom: 1px solid var(--line);
+}
+ 
+.avatar {
+  grid-row: 1 / span 2;
+  width: clamp(7rem, 22vw, 9.5rem);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  /* anillo separado de la foto */
+  box-shadow: 0 0 0 4px var(--bg), 0 0 0 7px var(--accent);
+}
+ 
+header h1 {
+  align-self: end;
+  margin: 0;
+  font-size: clamp(2rem, 6.5vw, 3.25rem);
+  font-weight: 750;
+}
+ 
+header p {
+  align-self: start;
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+ 
+/* ---------- 4. Secciones ---------- */
+main {
+  display: block;
+}
+ 
+section {
+  margin-top: 2.5rem;
+}
+ 
+h2 {
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--accent);
+  width: fit-content;
+  padding-right: 1.5rem;
+}
+ 
+section p {
+  margin: 0;
+  max-width: 65ch;
+}
+ 
+/* ---------- 5. Listas ---------- */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+ 
+li {
+  position: relative;
+  padding: 0.7rem 1rem 0.7rem 2.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+ 
+li::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: translateY(-50%) rotate(45deg);
+}
+ 
+li a {
+  font-weight: 600;
+}
+ 
+/* ---------- 6. Pie de página ---------- */
+footer {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
   text-align: center;
 }
-.avatar {
-  width: 150px;
-  border-radius: 50%;
+ 
+footer a {
+  display: inline-block;
+  padding: 0.55rem 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  transition: background 0.15s, color 0.15s;
 }
+ 
+footer a:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+ 
+/* ---------- 7. Móvil ---------- */
+@media (max-width: 34rem) {
+  body {
+    font-size: 1rem;
+    padding: 1rem 1.1rem 2.5rem;
+  }
+ 
+  header {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    row-gap: 0.25rem;
+    padding-top: 1.75rem;
+  }
+ 
+  .avatar {
+    grid-row: auto;
+    margin-bottom: 1.25rem;
+  }
+ 
+  header h1 {
+    align-self: auto;
+  }
+}
+ 
+/* ---------- 8. Accesibilidad ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+ 
+  * {
+    transition: none !important;
+  }
+}
+ 
+/* ---------- 9. Impresión (por si imprimen tu web) ---------- */
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+ 
+  li {
+    box-shadow: none;
+  }
+}
+ 
