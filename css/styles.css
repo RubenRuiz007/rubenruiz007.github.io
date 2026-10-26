@@ -1,0 +1,14 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: #222;
+}
+header {
+  text-align: center;
+}
+.avatar {
+  width: 150px;
+  border-radius: 50%;
+}
